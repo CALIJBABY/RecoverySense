@@ -1,0 +1,24 @@
+# This file tracks properties of this Flutter project.
+version:
+  revision: starter-template
+  channel: stable
+
+project_type: app
+
+migration:
+  platforms:
+    - platform: root
+      create_revision: starter-template
+      base_revision: starter-template
+    - platform: android
+      create_revision: starter-template
+      base_revision: starter-template
+    - platform: ios
+      create_revision: starter-template
+      base_revision: starter-template
+    - platform: web
+      create_revision: starter-template
+      base_revision: starter-template
+
+unmanaged_files:
+  - 'lib/main.dart'

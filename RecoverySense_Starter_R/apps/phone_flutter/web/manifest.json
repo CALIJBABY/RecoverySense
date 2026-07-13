@@ -1,0 +1,9 @@
+{
+  "name": "RecoverySense",
+  "short_name": "RecoverySense",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#1565C0",
+  "description": "RecoverySense prototype app"
+}

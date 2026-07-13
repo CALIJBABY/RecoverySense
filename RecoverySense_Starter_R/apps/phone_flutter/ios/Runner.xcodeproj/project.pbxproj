@@ -1,0 +1,1 @@
+// Placeholder Xcode project. On a Mac, run `flutter create --platforms=ios .` inside apps/phone_flutter to regenerate full iOS files.
