@@ -1,0 +1,135 @@
+{
+  "split_method": "participant-grouped-stratified",
+  "train_samples": 169,
+  "test_samples": 50,
+  "train_participants": [
+    "participant-01",
+    "participant-02",
+    "participant-03",
+    "participant-04",
+    "participant-06",
+    "participant-07"
+  ],
+  "test_participants": [
+    "participant-05",
+    "participant-08"
+  ],
+  "test": {
+    "threshold": 0.7,
+    "samples": 50,
+    "positive_samples": 8,
+    "accuracy": 0.92,
+    "precision": 0.8333333333333334,
+    "recall": 0.625,
+    "f1": 0.7142857142857143,
+    "confusion_matrix": [
+      [
+        41,
+        1
+      ],
+      [
+        3,
+        5
+      ]
+    ],
+    "roc_auc": 0.7946428571428571,
+    "average_precision": 0.7782863145258103
+  },
+  "cross_validation": {
+    "folds": 3,
+    "roc_auc": {
+      "mean": 0.8444422213329776,
+      "std": 0.04695058105441306
+    },
+    "average_precision": {
+      "mean": 0.7934021543466657,
+      "std": 0.02741333852303967
+    },
+    "f1": {
+      "mean": 0.75,
+      "std": 0.0
+    }
+  },
+  "top_feature_importances": [
+    {
+      "feature": "hr_max",
+      "importance": 0.07935416857811654
+    },
+    {
+      "feature": "accel_y_range",
+      "importance": 0.06434871126290814
+    },
+    {
+      "feature": "accel_x_iqr",
+      "importance": 0.06133095480686047
+    },
+    {
+      "feature": "accel_y_min",
+      "importance": 0.05272872460363394
+    },
+    {
+      "feature": "accel_x_range",
+      "importance": 0.043780508452789905
+    },
+    {
+      "feature": "accel_x_min",
+      "importance": 0.03770884122493815
+    },
+    {
+      "feature": "accel_x_std",
+      "importance": 0.028310167938049215
+    },
+    {
+      "feature": "accel_x_rms",
+      "importance": 0.02816750310789237
+    },
+    {
+      "feature": "signal_magnitude_area",
+      "importance": 0.02796386108979777
+    },
+    {
+      "feature": "accel_mag_rms",
+      "importance": 0.02554716316509191
+    },
+    {
+      "feature": "accel_y_std",
+      "importance": 0.024687276897700786
+    },
+    {
+      "feature": "jerk_spectral_energy",
+      "importance": 0.02348056528927858
+    },
+    {
+      "feature": "accel_mag_max",
+      "importance": 0.02281086627027587
+    },
+    {
+      "feature": "accel_z_range",
+      "importance": 0.020213737185914203
+    },
+    {
+      "feature": "accel_y_max",
+      "importance": 0.019838480726438082
+    },
+    {
+      "feature": "accel_y_rms",
+      "importance": 0.019712221900860104
+    },
+    {
+      "feature": "accel_z_max",
+      "importance": 0.019008530405030734
+    },
+    {
+      "feature": "jerk_max",
+      "importance": 0.018967155335390125
+    },
+    {
+      "feature": "accel_y_iqr",
+      "importance": 0.01781978113285306
+    },
+    {
+      "feature": "jerk_rms",
+      "importance": 0.017801020318008422
+    }
+  ]
+}

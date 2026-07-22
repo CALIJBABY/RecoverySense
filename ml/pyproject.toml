@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "recoverysense-ml"
+version = "0.1.0"
+description = "RecoverySense wearable-sensor preprocessing, feature extraction, training, and inference"
+requires-python = ">=3.11"
+dependencies = [
+  "joblib>=1.4,<2",
+  "numpy>=2.0,<3",
+  "pandas>=2.2,<3",
+  "PyYAML>=6,<7",
+  "scikit-learn>=1.5,<2",
+  "scipy>=1.13,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<9"]
+
+[project.scripts]
+recoverysense-ml = "recoverysense_ml.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

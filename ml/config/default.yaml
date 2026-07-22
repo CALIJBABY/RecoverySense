@@ -1,0 +1,52 @@
+project:
+  random_seed: 42
+
+paths:
+  raw_sensor_csv: ml/data/raw/sensor_readings.csv
+  ema_csv: ml/data/raw/ema_events.csv
+  processed_windows_csv: ml/data/processed/training_windows.csv
+  model_bundle: ml/models/random_forest_bundle.joblib
+  metrics_json: ml/reports/metrics.json
+  test_predictions_csv: ml/reports/test_predictions.csv
+
+schema:
+  participant_column: participant_id
+  session_column: session_id
+  timestamp_column: timestamp
+  heart_rate_column: heart_rate
+  accel_columns: [accel_x, accel_y, accel_z]
+
+preprocessing:
+  sampling_rate_hz: 10.0
+  maximum_interpolation_gap_seconds: 2.0
+  session_break_gap_seconds: 10.0
+  heart_rate_valid_range: [30.0, 220.0]
+  acceleration_valid_range_g: [-16.0, 16.0]
+  heart_rate_median_kernel_seconds: 3.0
+  accelerometer_lowpass_hz: 4.0
+  filter_order: 4
+
+windowing:
+  window_seconds: 30.0
+  stride_seconds: 15.0
+  maximum_missing_fraction: 0.20
+  minimum_window_coverage: 0.80
+
+labeling:
+  positive_score_threshold: 7
+  positive_lookback_seconds: 120.0
+  negative_exclusion_seconds: 300.0
+  drop_ambiguous_windows: true
+
+model:
+  n_estimators: 300
+  max_depth: null
+  min_samples_leaf: 3
+  class_weight: balanced_subsample
+  n_jobs: 1
+  probability_threshold: 0.70
+  test_fraction: 0.20
+  cross_validation_folds: 3
+
+inference:
+  minimum_seconds_between_ema_triggers: 900.0

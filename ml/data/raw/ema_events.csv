@@ -1,0 +1,17 @@
+participant_id,timestamp,craving_score,source
+participant-01,2026-01-01 12:03:07.200000+00:00,10,synthetic-demo
+participant-01,2026-01-01 12:07:59.900000+00:00,2,synthetic-demo
+participant-02,2026-01-02 12:04:48.600000+00:00,2,synthetic-demo
+participant-02,2026-01-02 12:07:59.900000+00:00,0,synthetic-demo
+participant-03,2026-01-03 12:03:42.900000+00:00,10,synthetic-demo
+participant-03,2026-01-03 12:07:59.900000+00:00,1,synthetic-demo
+participant-04,2026-01-04 12:04:25+00:00,0,synthetic-demo
+participant-04,2026-01-04 12:07:59.900000+00:00,0,synthetic-demo
+participant-05,2026-01-05 12:05:59.500000+00:00,8,synthetic-demo
+participant-05,2026-01-05 12:07:59.900000+00:00,2,synthetic-demo
+participant-06,2026-01-06 12:03:04+00:00,2,synthetic-demo
+participant-06,2026-01-06 12:07:59.900000+00:00,3,synthetic-demo
+participant-07,2026-01-07 12:04:31.700000+00:00,8,synthetic-demo
+participant-07,2026-01-07 12:07:59.900000+00:00,0,synthetic-demo
+participant-08,2026-01-08 12:06:19.100000+00:00,1,synthetic-demo
+participant-08,2026-01-08 12:07:59.900000+00:00,0,synthetic-demo
