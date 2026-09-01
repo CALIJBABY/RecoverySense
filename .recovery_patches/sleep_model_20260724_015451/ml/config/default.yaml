@@ -1,0 +1,71 @@
+project:
+  random_seed: 42
+
+paths:
+  raw_sensor_csv: ml/data/raw/sensor_readings.csv
+  ema_csv: ml/data/raw/ema_events.csv
+  processed_windows_csv: ml/data/processed/training_windows.csv
+  model_bundle: ml/models/best_craving_model_bundle.joblib
+  metrics_json: ml/reports/metrics.json
+  model_comparison_json: ml/reports/model_comparison.json
+  feature_ablation_json: ml/reports/feature_group_ablation.json
+  test_predictions_csv: ml/reports/test_predictions.csv
+
+schema:
+  participant_column: participant_id
+  session_column: session_id
+  timestamp_column: timestamp
+  heart_rate_column: heart_rate
+  accel_columns: [accel_x, accel_y, accel_z]
+  gyro_columns: [gyro_x, gyro_y, gyro_z]
+  step_count_column: step_count
+  step_detected_column: step_detected
+  heart_rate_accuracy_column: heart_rate_accuracy
+  accelerometer_accuracy_column: accelerometer_accuracy
+  gyroscope_accuracy_column: gyroscope_accuracy
+  off_body_column: off_body
+
+preprocessing:
+  sampling_rate_hz: 10.0
+  maximum_interpolation_gap_seconds: 2.0
+  session_break_gap_seconds: 10.0
+  heart_rate_valid_range: [30.0, 220.0]
+  acceleration_valid_range_g: [-16.0, 16.0]
+  gyroscope_valid_range_rad_s: [-50.0, 50.0]
+  heart_rate_median_kernel_seconds: 3.0
+  accelerometer_lowpass_hz: 4.0
+  gyroscope_lowpass_hz: 4.0
+  filter_order: 4
+  baseline_window_seconds: 300.0
+  baseline_minimum_seconds: 60.0
+
+windowing:
+  window_seconds: 30.0
+  stride_seconds: 15.0
+  maximum_missing_fraction: 0.20
+  minimum_window_coverage: 0.80
+
+labeling:
+  positive_score_threshold: 7
+  positive_lookback_seconds: 120.0
+  negative_exclusion_seconds: 300.0
+  drop_ambiguous_windows: true
+
+model:
+  probability_threshold: 0.70
+  test_fraction: 0.20
+  cross_validation_folds: 3
+  permutation_importance_repeats: 5
+  logistic_max_iter: 2000
+  svm_c: 1.0
+  n_estimators: 300
+  max_depth: null
+  min_samples_leaf: 3
+  class_weight: balanced_subsample
+  n_jobs: 1
+  gradient_boosting_estimators: 150
+  gradient_boosting_learning_rate: 0.05
+  gradient_boosting_max_depth: 3
+
+inference:
+  minimum_seconds_between_ema_triggers: 900.0

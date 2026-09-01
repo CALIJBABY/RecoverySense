@@ -51,36 +51,3 @@ build/
 *.jks
 *.keystore
 service-account*.json
-
-# Local RecoverySense development artifacts
-.recovery_patches/
-*.zip
-**/.dart_tool/
-**/build/
-**/.gradle/
-**/.kotlin/
-**/.idea/
-**/.venv/
-**/__pycache__/
-**/.pytest_cache/
-**/local.properties
-
-# Private credentials / signing material
-**/*service-account*.json
-**/*firebase-admin*.json
-**/*credentials*.json
-**/*.pem
-**/*.p12
-**/*.jks
-**/*.keystore
-.env
-.env.*
-
-
-# Local Firebase client configuration
-apps/phone_flutter_new/android/app/google-services.json
-apps/phone_flutter_new/lib/firebase_options.dart
-
-# Local/proprietary wearable SDK binaries
-apps/wear_android/wear_android/app/libs/
-

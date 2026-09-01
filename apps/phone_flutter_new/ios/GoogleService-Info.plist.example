@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>NOTICE</key>
+  <string>Do not rename this example. Run flutterfire configure to generate the real GoogleService-Info.plist and iOS FirebaseOptions.</string>
+  <key>EXPECTED_BUNDLE_ID</key>
+  <string>com.recoverysense.phone</string>
+  <key>FIREBASE_PROJECT_ID</key>
+  <string>recoverysense</string>
+</dict>
+</plist>

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "164406955199",
+    "project_id": "recoverysense",
+    "storage_bucket": "recoverysense.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164406955199:android:5b2ef5c9116bd69fe24a0a",
+        "android_client_info": {
+          "package_name": "com.recoverysense.wear"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMth_8KJlgz5RamBjBYu4IrYNtXbZnkI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
