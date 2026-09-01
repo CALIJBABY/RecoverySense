@@ -1,0 +1,1 @@
+participant_id,session_id,recording_mode,sleep_session_id,batch_id,timestamp,sampling_rate_hz,source,green_adc,infrared_adc,red_adc,green_status,infrared_status,red_status

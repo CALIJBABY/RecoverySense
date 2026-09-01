@@ -1,0 +1,86 @@
+# RecoverySense repository hygiene
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.venv/
+venv/
+
+# ML generated artifacts
+ml/data/processed/
+ml/models/
+ml/reports/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+**/build/
+
+# Android local/generated files
+**/local.properties
+**/.gradle/
+**/.kotlin/
+*.log
+
+# Flutter-generated Apple environment files
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/flutter_export_environment.sh
+**/macos/Flutter/ephemeral/
+
+# Xcode
+**/DerivedData/
+**/xcuserdata/
+
+# Local environment / secrets
+.env
+.env.*
+!.env.example
+*.jks
+*.keystore
+service-account*.json
+
+# Local RecoverySense development artifacts
+.recovery_patches/
+*.zip
+**/.dart_tool/
+**/build/
+**/.gradle/
+**/.kotlin/
+**/.idea/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/local.properties
+
+# Private credentials / signing material
+**/*service-account*.json
+**/*firebase-admin*.json
+**/*credentials*.json
+**/*.pem
+**/*.p12
+**/*.jks
+**/*.keystore
+.env
+.env.*
+
+
+# Local Firebase client configuration
+apps/phone_flutter_new/android/app/google-services.json
+apps/phone_flutter_new/lib/firebase_options.dart
+
+# Local/proprietary wearable SDK binaries
+apps/wear_android/wear_android/app/libs/
+

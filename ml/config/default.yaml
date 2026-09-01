@@ -4,10 +4,19 @@ project:
 paths:
   raw_sensor_csv: ml/data/raw/sensor_readings.csv
   ema_csv: ml/data/raw/ema_events.csv
+  sleep_sessions_csv: ml/data/raw/sleep_sessions.csv
+  raw_ppg_csv: ml/data/raw/raw_ppg.csv
   processed_windows_csv: ml/data/processed/training_windows.csv
-  model_bundle: ml/models/random_forest_bundle.joblib
+  processed_sleep_epochs_csv: ml/data/processed/sleep_epochs.csv
+  model_bundle: ml/models/best_craving_model_bundle.joblib
+  sleep_model_bundle: ml/models/best_sleep_wake_model_bundle.joblib
   metrics_json: ml/reports/metrics.json
+  sleep_metrics_json: ml/reports/sleep_metrics.json
+  model_comparison_json: ml/reports/model_comparison.json
+  sleep_model_comparison_json: ml/reports/sleep_model_comparison.json
+  feature_ablation_json: ml/reports/feature_group_ablation.json
   test_predictions_csv: ml/reports/test_predictions.csv
+  sleep_test_predictions_csv: ml/reports/sleep_test_predictions.csv
 
 schema:
   participant_column: participant_id
@@ -15,6 +24,15 @@ schema:
   timestamp_column: timestamp
   heart_rate_column: heart_rate
   accel_columns: [accel_x, accel_y, accel_z]
+  gyro_columns: [gyro_x, gyro_y, gyro_z]
+  step_count_column: step_count
+  step_detected_column: step_detected
+  heart_rate_accuracy_column: heart_rate_accuracy
+  accelerometer_accuracy_column: accelerometer_accuracy
+  gyroscope_accuracy_column: gyroscope_accuracy
+  off_body_column: off_body
+  heart_rate_age_column: heart_rate_age_ms
+  screen_interactive_column: screen_interactive
 
 preprocessing:
   sampling_rate_hz: 10.0
@@ -22,9 +40,13 @@ preprocessing:
   session_break_gap_seconds: 10.0
   heart_rate_valid_range: [30.0, 220.0]
   acceleration_valid_range_g: [-16.0, 16.0]
+  gyroscope_valid_range_rad_s: [-50.0, 50.0]
   heart_rate_median_kernel_seconds: 3.0
   accelerometer_lowpass_hz: 4.0
+  gyroscope_lowpass_hz: 4.0
   filter_order: 4
+  baseline_window_seconds: 300.0
+  baseline_minimum_seconds: 60.0
 
 windowing:
   window_seconds: 30.0
@@ -38,15 +60,48 @@ labeling:
   negative_exclusion_seconds: 300.0
   drop_ambiguous_windows: true
 
+ppg:
+  sampling_rate_hz: 25.0
+  minimum_valid_fraction: 0.70
+  pulse_band_hz: [0.5, 5.0]
+  note: "PPG interval variability is reported as PRV, not ECG-derived HRV."
+
+sleep_context:
+  preferred_max_age_hours: 36.0
+  stale_max_age_hours: 48.0
+
+sleep_model:
+  epoch_seconds: 30.0
+  minimum_epoch_coverage: 0.60
+  probability_threshold: 0.50
+  test_fraction: 0.20
+  cross_validation_folds: 3
+  n_estimators: 300
+  max_depth: null
+  min_samples_leaf: 3
+  gradient_boosting_estimators: 150
+  gradient_boosting_learning_rate: 0.05
+  gradient_boosting_max_depth: 3
+  decision_tree_max_depth: 8
+  temporal_smoothing_epochs: 5
+  minimum_sustained_sleep_epochs: 10
+
 model:
+  probability_threshold: 0.70
+  test_fraction: 0.20
+  cross_validation_folds: 3
+  permutation_importance_repeats: 5
+  logistic_max_iter: 2000
+  svm_c: 1.0
   n_estimators: 300
   max_depth: null
   min_samples_leaf: 3
   class_weight: balanced_subsample
   n_jobs: 1
-  probability_threshold: 0.70
-  test_fraction: 0.20
-  cross_validation_folds: 3
+  gradient_boosting_estimators: 150
+  gradient_boosting_learning_rate: 0.05
+  gradient_boosting_max_depth: 3
+  decision_tree_max_depth: 8
 
 inference:
   minimum_seconds_between_ema_triggers: 900.0

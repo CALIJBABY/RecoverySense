@@ -1,3 +1,5 @@
+> **Historical planning/prototype document.** It does not describe the current version 0.5.1 implementation. See `docs/CURRENT_DOCUMENTATION_INDEX.md`.
+
 # Start Here
 
 Goal for this starter: get a running emulated phone app first.

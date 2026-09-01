@@ -55,9 +55,9 @@ def evaluate_trigger(reading: SensorReadingIn) -> TriggerDecision:
     if cooldown_active:
         reason = "Risk probability exceeded the threshold, but the EMA cooldown is active."
     elif should_trigger:
-        reason = "Random Forest probability met or exceeded the EMA threshold."
+        reason = "The selected craving-risk model met or exceeded the EMA threshold."
     else:
-        reason = "Random Forest probability remained below the EMA threshold."
+        reason = "The selected craving-risk model remained below the EMA threshold."
 
     return TriggerDecision(
         should_trigger_ema=should_trigger,

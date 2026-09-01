@@ -1,3 +1,5 @@
+> **Historical planning/prototype document.** It does not describe the current version 0.5.1 implementation. See `docs/CURRENT_DOCUMENTATION_INDEX.md`.
+
 # Week 4 Scope
 
 ## Must finish

@@ -38,3 +38,12 @@ def validate_ema_frame(frame: pd.DataFrame, config: dict[str, Any]) -> None:
         raise DataValidationError(
             "EMA CSV is missing required columns: " + ", ".join(missing)
         )
+
+
+def validate_sleep_frame(frame: pd.DataFrame) -> None:
+    required = {"participant_id", "wake_time", "total_sleep_minutes"}
+    missing = sorted(required.difference(frame.columns))
+    if missing:
+        raise DataValidationError(
+            "Sleep CSV is missing required columns: " + ", ".join(missing)
+        )

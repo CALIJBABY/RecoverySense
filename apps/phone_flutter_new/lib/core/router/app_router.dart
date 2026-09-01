@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../../models/ema_prompt.dart';
 import '../../screens/dashboard/dashboard_screen.dart';
 import '../../screens/ema/ema_screen.dart';
 import '../../screens/history/history_screen.dart';
 import '../../screens/login/login_screen.dart';
+import '../../screens/onboarding/baseline_assessment_screen.dart';
 import '../../screens/register/register_screen.dart';
 import '../../screens/settings/settings_screen.dart';
+import '../../screens/sleep/sleep_screen.dart';
 import '../../screens/splash/splash_screen.dart';
 import '../../screens/watch/watch_screen.dart';
 
@@ -13,9 +16,11 @@ class AppRoutes {
   static const splash = '/';
   static const login = '/login';
   static const register = '/register';
+  static const baseline = '/baseline';
   static const dashboard = '/dashboard';
   static const ema = '/ema';
   static const watch = '/watch';
+  static const sleep = '/sleep';
   static const history = '/history';
   static const settings = '/settings';
 }
@@ -34,14 +39,24 @@ class AppRouter {
       case AppRoutes.register:
         screen = const RegisterScreen();
         break;
+      case AppRoutes.baseline:
+        screen = const BaselineAssessmentScreen();
+        break;
       case AppRoutes.dashboard:
         screen = const DashboardScreen();
         break;
       case AppRoutes.ema:
-        screen = const EmaScreen();
+        screen = EmaScreen(
+          prompt: settings.arguments is EmaPrompt
+              ? settings.arguments! as EmaPrompt
+              : const EmaPrompt(),
+        );
         break;
       case AppRoutes.watch:
         screen = const WatchScreen();
+        break;
+      case AppRoutes.sleep:
+        screen = const SleepScreen();
         break;
       case AppRoutes.history:
         screen = const HistoryScreen();
@@ -53,6 +68,6 @@ class AppRouter {
         screen = const LoginScreen();
     }
 
-    return MaterialPageRoute(builder: (_) => screen);
+    return MaterialPageRoute(builder: (_) => screen, settings: settings);
   }
 }

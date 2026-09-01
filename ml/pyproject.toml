@@ -4,10 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "recoverysense-ml"
-version = "0.1.0"
+version = "0.5.3"
 description = "RecoverySense wearable-sensor preprocessing, feature extraction, training, and inference"
 requires-python = ">=3.11"
 dependencies = [
+  "firebase-admin>=7,<8",
   "joblib>=1.4,<2",
   "numpy>=2.0,<3",
   "pandas>=2.2,<3",
@@ -21,6 +22,7 @@ dev = ["pytest>=8,<9"]
 
 [project.scripts]
 recoverysense-ml = "recoverysense_ml.cli:main"
+recoverysense-export-firestore = "recoverysense_ml.firestore_export:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

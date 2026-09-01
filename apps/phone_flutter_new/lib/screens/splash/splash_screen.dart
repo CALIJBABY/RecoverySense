@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constants/app_strings.dart';
 import '../../core/router/app_router.dart';
+import '../../core/theme/app_theme.dart';
+import '../../services/firebase/baseline_assessment_repository.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,28 +14,53 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  bool _startupFailed = false;
+
   @override
   void initState() {
     super.initState();
-    Future<void>.delayed(const Duration(milliseconds: 900), () {
-      if (mounted) {
-        Navigator.pushReplacementNamed(context, AppRoutes.login);
-      }
-    });
+    _routeAfterStartup();
+  }
+
+  Future<void> _routeAfterStartup() async {
+    await Future<void>.delayed(const Duration(milliseconds: 700));
+    if (!mounted) return;
+    final signedIn = FirebaseAuth.instance.currentUser != null;
+    if (!signedIn) {
+      Navigator.pushReplacementNamed(context, AppRoutes.login);
+      return;
+    }
+
+    try {
+      final complete = await BaselineAssessmentRepository().isComplete();
+      if (!mounted) return;
+      Navigator.pushReplacementNamed(
+        context,
+        complete ? AppRoutes.dashboard : AppRoutes.baseline,
+      );
+    } catch (error, stackTrace) {
+      debugPrint('Startup baseline check failed: $error\n$stackTrace');
+      if (!mounted) return;
+      setState(() => _startupFailed = true);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.all(32),
+          padding: const EdgeInsets.all(32),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.favorite_border, size: 72, color: Color(0xFF2F5D3A)),
-              SizedBox(height: 18),
-              Text(
+              const Icon(
+                Icons.favorite_border,
+                size: 72,
+                color: AppTheme.primaryGreen,
+              ),
+              const SizedBox(height: 18),
+              const Text(
                 AppStrings.appName,
                 style: TextStyle(
                   fontSize: 34,
@@ -40,12 +68,29 @@ class _SplashScreenState extends State<SplashScreen> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 8),
-              Text(
+              const SizedBox(height: 8),
+              const Text(
                 AppStrings.tagline,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
+              const SizedBox(height: 24),
+              if (!_startupFailed)
+                const CircularProgressIndicator()
+              else ...[
+                const Text(
+                  'Unable to verify your baseline status. Check your connection and try again.',
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 10),
+                TextButton(
+                  onPressed: () {
+                    setState(() => _startupFailed = false);
+                    _routeAfterStartup();
+                  },
+                  child: const Text('Retry'),
+                ),
+              ],
             ],
           ),
         ),

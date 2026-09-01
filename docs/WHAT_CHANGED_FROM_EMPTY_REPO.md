@@ -1,3 +1,5 @@
+> **Historical planning/prototype document.** It does not describe the current version 0.5.1 implementation. See `docs/CURRENT_DOCUMENTATION_INDEX.md`.
+
 # What Changed From the Empty Starter Repo
 
 This version adds base code so you are not starting from blank files.

@@ -1,0 +1,80 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isOwner(participantId) {
+      return request.auth != null && request.auth.uid == participantId;
+    }
+
+    match /participants/{participantId} {
+      // The signed-in participant may maintain their own top-level profile.
+      allow read, create, update: if isOwner(participantId);
+      allow delete: if false;
+
+      // Baseline v1 is intentionally write-once in the application. Rules
+      // reinforce that a completed assessment cannot be silently overwritten.
+      match /baseline_assessments/{assessmentId} {
+        allow read, create: if isOwner(participantId);
+        allow update, delete: if false;
+      }
+
+      // Participant-generated labels and sensor records.
+      match /ema_events/{eventId} {
+        allow read, create, update: if isOwner(participantId);
+        allow delete: if false;
+      }
+
+      match /sessions/{sessionId} {
+        allow read, create, update: if isOwner(participantId);
+        allow delete: if false;
+
+        match /sensor_batches/{batchId} {
+          allow read, create, update: if isOwner(participantId);
+          allow delete: if false;
+        }
+        match /ppg_batches/{batchId} {
+          allow read, create, update: if isOwner(participantId);
+          allow delete: if false;
+        }
+      }
+
+      match /sleep_sessions/{sleepSessionId} {
+        allow read, create, update: if isOwner(participantId);
+        allow delete: if false;
+
+        match /epochs/{epochId} {
+          allow read, create, update: if isOwner(participantId);
+          allow delete: if false;
+        }
+        match /sensor_batches/{batchId} {
+          allow read, create, update: if isOwner(participantId);
+          allow delete: if false;
+        }
+        match /ppg_batches/{batchId} {
+          allow read, create, update: if isOwner(participantId);
+          allow delete: if false;
+        }
+      }
+
+      // Historical path retained for export/backward compatibility.
+      match /sleep_logs/{logId} {
+        allow read: if isOwner(participantId);
+        allow create, update, delete: if false;
+      }
+
+      // Model outputs are server/admin-authored. Participants may view their
+      // own results but cannot forge or alter model provenance in the client.
+      match /risk_predictions/{predictionId} {
+        allow read: if isOwner(participantId);
+        allow write: if false;
+      }
+      match /model_predictions/{predictionId} {
+        allow read: if isOwner(participantId);
+        allow write: if false;
+      }
+      match /trigger_events/{eventId} {
+        allow read: if isOwner(participantId);
+        allow write: if false;
+      }
+    }
+  }
+}

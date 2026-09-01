@@ -1,0 +1,2 @@
+participant_id,sleep_date_local,bedtime,wake_time,time_in_bed_minutes,total_sleep_minutes,sleep_quality,sleep_efficiency_percent,awakenings_count,wake_after_sleep_onset_minutes,rested_score,timezone_offset_minutes,source,note,submitted_at
+participant-001,2026-07-22,2026-07-22T06:00:00Z,2026-07-22T14:00:00Z,480,420,7,87.5,2,20,6,-420,self_report,,2026-07-22T15:00:00Z
