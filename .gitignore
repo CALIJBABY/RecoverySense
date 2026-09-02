@@ -51,3 +51,7 @@ build/
 *.jks
 *.keystore
 service-account*.json
+
+# Local RecoverySense participant data and exploratory outputs
+ml/data/raw/primary_participant/
+ml/reports/pilot_single_participant/
