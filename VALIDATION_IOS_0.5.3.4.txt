@@ -1,0 +1,60 @@
+RecoverySense iOS parity / export stability validation
+======================================================
+Date: 2026-08-25
+Package: RecoverySense_iOS_0.5.3.4_Parity
+
+SOURCE BASE
+- Current reconstructed Android/Flutter/backend/ML tree: 0.5.3 plus 0.5.3.4 daily-steps/factor UI patch.
+- Prior functional iPhone/Apple Watch source: RecoverySenseIOSFullClean01.
+- Phone version: 0.5.3+10.
+- Galaxy Watch version: 0.5.3 / versionCode 7.
+- Apple Watch source version: 0.5.3 / build 7.
+- Wear OS/watchOS sensor schema: 5.
+
+AUTOMATED CHECKS COMPLETED
+- 15 Swift source files passed `swiftc -parse`.
+- Runner Info.plist passed plutil.
+- Apple Watch Info.plist passed plutil.
+- Apple Watch entitlements passed plutil.
+- Runner Xcode project.pbxproj passed plutil.
+- Android/Dart/iPhone/watchOS parity contract: passed.
+- Research/static audit: 208/208 passed.
+- ML tests: 20 passed.
+- Backend tests: 12 passed.
+- Python source compilation: passed.
+- Repository quality audit: 358 files; 227 PASS, 130 INFO, 1 WARN, 0 FAIL.
+
+ONLY REPOSITORY-AUDIT WARNING
+- apps/phone_flutter_new/pubspec.lock predates the current archive/share_plus declarations.
+- Flutter is unavailable in this environment, so the lockfile was not fabricated.
+- Run `flutter pub get` on the development Mac/PC and review the regenerated lockfile.
+
+EXPORT CRASH REVIEW
+The archived report did not include a native iOS stack trace, so a single root
+cause is not claimed. The source contained three concrete Apple-platform risks:
+- potentially absent/invalid share-sheet popover origin;
+- large ZIP compression on the Flutter UI isolate;
+- immediate deletion of the ZIP after the share future returned.
+
+The package adds:
+- a non-zero sharePositionOrigin fallback;
+- Isolate.run ZIP compression;
+- application/zip MIME metadata;
+- deferred temporary ZIP deletion with stale cleanup before the next export.
+
+NOT AVAILABLE / NOT CLAIMED AS PASSED
+- Xcode build, Swift type checking against Apple SDKs, code signing, or archive.
+- Flutter pub get, dart format, flutter analyze, Flutter tests, or iOS build.
+- Cocoa/Swift package resolution on a Mac.
+- Firebase iOS registration or a real GoogleService-Info.plist.
+- Physical iPhone/Apple Watch HealthKit, motion, screen-off, step rollover,
+  WatchConnectivity backlog/ACK, sleep, EMA, or export testing.
+- Real participant craving-model performance or clinical validity.
+
+REQUIRED LOCAL GATE
+1. Register Firebase iOS app com.recoverysense.phone.
+2. Add GoogleService-Info.plist and/or regenerate FlutterFire options.
+3. Run scripts/setup_ios_mac.sh.
+4. Assign one Apple Development Team to Runner and RecoverySenseWatch.
+5. Build/run on paired physical devices.
+6. Run an export with a small dataset and then a long sensor history.

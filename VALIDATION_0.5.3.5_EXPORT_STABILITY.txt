@@ -1,0 +1,54 @@
+RecoverySense 0.5.3.5 research-export stability validation
+===========================================================
+Date: 2026-08-25
+
+Scope
+-----
+- Current Android/Flutter/Wear OS source reconstructed through update 0.5.3.4.
+- Current iPhone/Apple Watch parity source based on RecoverySenseIOSFullClean01.
+- Shared phone version after hotfix: 0.5.3+11.
+- Research export schema after hotfix: 4.
+
+Export source checks
+--------------------
+PASS - Heavy Firestore documents use a four-document page size.
+PASS - Long-running sensor and PPG sinks flush periodically.
+PASS - Dynamic participant collections spool flattened rows to temporary NDJSON on disk before CSV generation.
+PASS - ZIP compression runs through Isolate.run rather than the Flutter UI isolate.
+PASS - ZIP existence and non-zero length are verified before sharing.
+PASS - Shared file has application/zip MIME metadata.
+PASS - Phone UI supplies a valid share position origin.
+PASS - Phone UI does not delete the ZIP immediately after share returns.
+PASS - Stale ZIP cleanup is bounded to files older than 24 hours or beyond the three most recent exports.
+PASS - Android and iPhone shared export source files are identical.
+
+Repository validation
+---------------------
+PASS - RecoverySense static research audit: 212/212 checks.
+PASS - ML tests: 20 passed.
+PASS - Backend tests: 12 passed.
+PASS - Python source compilation: passed.
+PASS - Android full snapshot repository audit: 321 files, 0 failures, 1 warning.
+PASS - iOS full snapshot repository audit: 360 files, 0 failures, 1 warning.
+PASS - Five Swift source files passed swiftc syntax parsing.
+
+Known warning
+-------------
+- apps/phone_flutter_new/pubspec.lock predates the current archive/share_plus declarations. Flutter is not installed in this packaging environment, so the lockfile was not fabricated. Run flutter pub get and review the regenerated lockfile on the development machine.
+
+Not available / not claimed
+---------------------------
+- No adb logcat from the Android export crash was available, so one definitive native root cause is not claimed.
+- Flutter/Dart formatting, analysis, tests, or APK/IPA compilation were not available in this environment.
+- Android share-sheet export was not exercised on the physical LG Q710.
+- Xcode build, CocoaPods resolution, signing, and physical iPhone/Apple Watch export were not exercised.
+- A short-history and long-history physical-device export remain required.
+
+Required physical test
+----------------------
+1. Rebuild the Android phone in release mode.
+2. Export a small account history and open the saved ZIP.
+3. Collect several sessions, then export a long history.
+4. Confirm the app remains responsive during compression.
+5. Confirm the saved ZIP still opens after the share sheet closes.
+6. Capture adb logcat if the process still closes unexpectedly.
